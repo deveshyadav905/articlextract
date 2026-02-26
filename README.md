@@ -18,8 +18,3 @@ Supports:
 - Extract publication date
 - Extract source
 - Static HTML only
-
-## Installation
-
-```bash
-pip install articlextract
