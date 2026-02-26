@@ -1,6 +1,6 @@
 [project]
 name = "articlextract"
-version = "0.1.0"
+version = "0.0.1"
 description = "Lightweight static HTML article metadata and content extractor."
 authors = [
     {name = "Devesh Yadav"}
