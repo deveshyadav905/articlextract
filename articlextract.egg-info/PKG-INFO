@@ -1,0 +1,32 @@
+Metadata-Version: 2.4
+Name: articlextract
+Version: 0.1.0
+Summary: Lightweight static HTML article metadata and content extractor.
+Author: Devesh Yadav
+Project-URL: Homepage, https://github.com/deveshyadav905/articlextract
+Requires-Python: >=3.9
+Description-Content-Type: text/markdown
+License-File: LICENSE
+Requires-Dist: requests>=2.32.5
+Dynamic: license-file
+
+# articlextract
+
+Lightweight static HTML article metadata and content extractor.
+
+Supports:
+- JSON-LD extraction
+- Embedded JS object parsing
+- Meta tag fallback
+- No browser required
+- No heavy dependencies
+
+## Features
+
+- Extract title
+- Extract full article body
+- Extract image URL
+- Extract author
+- Extract publication date
+- Extract source
+- Static HTML only

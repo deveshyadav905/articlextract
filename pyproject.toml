@@ -1,13 +1,15 @@
 [project]
 name = "articlextract"
-version = "0.0.1"
+version = "0.1.0"
 description = "Lightweight static HTML article metadata and content extractor."
 authors = [
     {name = "Devesh Yadav"}
 ]
 readme = "README.md"
 requires-python = ">=3.9"
-dependencies = []
+dependencies = [
+    "requests>=2.32.5",
+]
 
 [project.urls]
 Homepage = "https://github.com/deveshyadav905/articlextract"
