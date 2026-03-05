@@ -1,5 +1,5 @@
 from .base import BaseStrategy
-from ..parsers.jsonld_parser import parse_jsonld
+from ..parsers.jsonld_parser import parse_jsonld,flatten_itmes
 from ..cleaners.html_cleaner import clean_html
 
 
@@ -29,7 +29,10 @@ class JsonLDStrategy(BaseStrategy):
 
             # TITLE
             title = item.get("headline")
-
+            
+            #DESCRIPTION
+            description = item.get("description")
+            
             # BODY
             body = self._extract_body(item)
 
@@ -45,20 +48,40 @@ class JsonLDStrategy(BaseStrategy):
                 or item.get("dateCreated")
             )
 
+            modified_time = (
+                item.get("dateModified")
+            )
+            
+            # KEYWORDS
+            keywords =  item.get("keywords")
+            
+            # LANGUAGE
+            language = item.get("inLanguage")
+
             # LINK
             link = self._extract_link(item)
-
-            # SOURCE
-            source = self._extract_source(item)
-
+            
+            source_info = self._extract_source_info(item)
+            
+            source = source_info.get("name")
+            
+            logo = source_info.get('logo')
+            
             result.update({
+                
+                "link": link,
                 "title": title,
-                "full_description": body,
+                "description": description,
+                "keywords": keywords,
+                "language": language,
                 "img_url": img,
+                "full_description": body,
                 "author": author,
                 "pubdate": pubdate,
-                "link": link,
+                "modified_time": modified_time,
                 "source": source,
+                "logo": logo
+    
             })
 
             break  # first valid article wins
@@ -132,11 +155,13 @@ class JsonLDStrategy(BaseStrategy):
             return mep.get("@id") or mep.get("url")
 
         return item.get("url")
+    
+    def _extract_source_info(self, item):
+        source_info = {}
 
-    def _extract_source(self, item):
         publisher = item.get("publisher")
-
-        if isinstance(publisher, dict):
-            return publisher.get("name")
-
-        return None
+        if publisher:
+            source_info["name"] = publisher.get("name")
+            source_info["logo"] = publisher.get('logo').get('url') if isinstance(publisher.get('logo'),dict) else None
+                
+        return source_info

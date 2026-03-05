@@ -14,16 +14,20 @@ class ContentExtractor:
             EmbeddedJSStrategy(html, url),
             MetaTagStrategy(html, url),
         ]
-
+        
     def extract(self) -> dict:
         result = {
-            "title": None,
             "link": self.url,
-            "full_description": None,
+            "title": None,
+            "description": None,
+            "keywords": None,
             "img_url": None,
             "author": None,
+            "language": None,
             "pubdate": None,
+            "modified_time": None,
             "source": None,
+            "full_description": None
         }
 
         for strategy in self.strategies:
@@ -32,10 +36,13 @@ class ContentExtractor:
                 if not data:
                     continue
             except Exception as e:
-                print(str(e))
+                continue
 
             for key, value in data.items():
                 if result.get(key) is None and value:
                     result[key] = value
+            
+            if not any(value != None for key,value in result.items()):
+                break
 
         return result
